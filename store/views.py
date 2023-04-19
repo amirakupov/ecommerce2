@@ -6,7 +6,7 @@ def store(request):
     return render(request, 'store/store.html', context)
 def cart(request):
     context = {}
-    return render(request, 'cart/cart.html', context)
+    return render(request, 'store/cart.html', context)
 def checkout(request):
     context = {}
-    return render(request, 'checkout/checkout.html', context)
+    return render(request, 'store/checkout.html', context)
