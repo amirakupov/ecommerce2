@@ -7,11 +7,14 @@ for (i = 0; i < updateBtns.length; i++) {
 		console.log('productId:', productId, 'action:', action)
 		console.log('USER:', user)
 		if (user == 'AnonymousUser'){
-			console.log('bro is not logged in')
+			addCookeiItem(productId, action)
 		}else{
 			updateUserOrder(productId, action)
 		}
 	})
+}
+function addCookeiItem(productId, action){
+    console.log('User is not authenticated')
 }
 function updateUserOrder(productId, action){
     console.log('ye, bro is logged in')
