@@ -1,0 +1,18 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+	<div class="row">
+		{% for category in categories %}
+		<div class="col-lg-4">
+			<div class="box-element product">
+				<h6><strong>{{category.name}}</strong></h6>
+				<hr>
+
+				<a class="btn btn-outline-success" href="{% url 'category' category.id %}">schauma</a>
+
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+
+{% endblock content %}

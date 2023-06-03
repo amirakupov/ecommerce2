@@ -9,12 +9,19 @@ class Customer(models.Model):
 	def __str__(self):
 		return self.name
 
+class Category(models.Model):
+	name = models.CharField(max_length=150, null=True)
+
+	def __str__(self):
+		return self.name
+
 
 class Product(models.Model):
 	name = models.CharField(max_length=150, null=True)
 	price = models.DecimalField(max_digits=5, decimal_places=2)
 	digital = models.BooleanField(default=False,null=True, blank=True)
 	images = models.ImageField(null=True, blank=True)
+	category = models.ForeignKey(Category, on_delete=models.CASCADE,null=True, blank=True)
 
 	def __str__(self):
 		return self.name
