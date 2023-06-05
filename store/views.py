@@ -18,15 +18,23 @@ def store(request):
     return render(request, 'store/store.html', context)
 
 def menu(request):
+    data = cartData(request)
+    cartItems = data['cartItems']
     categories = Category.objects.all()
-    return render(request, 'store/menu.html', {'categories': categories})
+    return render(request, 'store/menu.html', {'categories': categories, 'cartItems': cartItems})
 
 def category(request, category_id):
+    data = cartData(request)
+    cartItems = data['cartItems']
     category = get_object_or_404(Category, pk=category_id)
     products = Product.objects.filter(category=category)
-    return render(request, 'store/category.html', {'category': category, 'products': products})
-def cart(request):
+    return render(request, 'store/category.html', {'category': category, 'products': products, 'cartItems': cartItems})
 
+def login_view(request):
+
+    return render(request, 'store/login.html')
+
+def cart(request):
     data = cartData(request)
     cartItems = data['cartItems']
     order = data['order']

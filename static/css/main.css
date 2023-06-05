@@ -97,3 +97,30 @@ h1,h2,h3,h4,h5,h6{
 .hidden{
 	display: none!important;
 }
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+	height: 60px;
+}
+
+.search-form {
+    width: 100%;
+    max-width: 500px;
+}
+
+.form-group {
+    display: flex;
+    justify-content: center;
+}
+
+.search-input {
+    flex-grow: 1;
+    border-radius: 4px;
+}
+
+.search-button {
+    border-radius: 4px;
+    margin-left: 10px;
+}
