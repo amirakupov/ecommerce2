@@ -1,12 +1,21 @@
-from django.shortcuts import render, get_object_or_404
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.views import LoginView
+from django.middleware import csrf
+from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse_lazy
+
+from .forms import LoginForm
 from .models import *
 from .utils import cookieCart, cartData, guestOrder
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 import json
 import datetime
 from django.db.models import Q
 from .models import Product
 from .models import Category
+from django.contrib import messages
 
 
 def store(request):
@@ -17,11 +26,17 @@ def store(request):
     context = {'products': products, 'cartItems': cartItems}
     return render(request, 'store/store.html', context)
 
+@login_required
 def menu(request):
     data = cartData(request)
     cartItems = data['cartItems']
     categories = Category.objects.all()
-    return render(request, 'store/menu.html', {'categories': categories, 'cartItems': cartItems})
+    return render(request, 'store/menu.html', {'categories': categories,
+                                               'cartItems': cartItems})
+
+def index(request):
+    return render(request, 'store/index.html')
+
 
 def category(request, category_id):
     data = cartData(request)
@@ -30,9 +45,23 @@ def category(request, category_id):
     products = Product.objects.filter(category=category)
     return render(request, 'store/category.html', {'category': category, 'products': products, 'cartItems': cartItems})
 
-def login_view(request):
 
-    return render(request, 'store/login.html')
+def login_view(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            user = authenticate(request, username=cd['username'], password=cd['password'])
+            if user is not None:
+
+                login(request, user)
+                return redirect('menu')
+
+            else:
+                return HttpResponse('Invalid login')
+    else:
+        form = LoginForm()
+    return render(request, 'store/login.html', {'form': form})
 
 def cart(request):
     data = cartData(request)

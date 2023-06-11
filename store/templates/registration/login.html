@@ -53,11 +53,18 @@
 <body>
     <div class="login-card">
         <h2>Login</h2>
+        {% if form.errors %}
+        <p>
+            Ihr Benutzername und Ihr Passwort stimmen nicht überein.
+            Bitte versuchen Sie es erneut.
+        </p>
+        {% endif %}
         <h5>Willkommen!</h5>
-        <form method="post" action="{% url 'login' %}">
+        <form action="{% url 'login' %}" method="post" >
             {% csrf_token %}
             <input type="text" name="username" placeholder="Dein Benutzername" required>
             <input type="password" name="password" placeholder="Passwort" required>
+            <input type="hidden" name="next" value="{{ next }}" />
             <button type="submit">Login</button>
         </form>
         <h6>Noch kein Konto?</h6>

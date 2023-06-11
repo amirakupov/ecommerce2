@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<title>Homepage</title>
+<style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .header {
+      position: relative;
+      height: 100vh;
+      background-image: url('https://cdn.pixabay.com/photo/2017/08/03/21/48/drinks-2578446_1280.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .header-content {
+      position: absolute;
+      top: calc(50% + 50px);
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(255, 255, 255, 0.7);
+      padding: 50px;
+      text-align: center;
+      max-width: 800px;
+      width: 50%;
+      margin-bottom: 20px;
+    }
+
+    .header-content h1 {
+      font-size: 30px;
+      margin-bottom: 20px;
+    }
+
+      .buttons {
+      margin-top: 20px;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      margin-right: 10px;
+      background-color: black;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 4px;
+      align-items: center;
+      margin-bottom: 2px;
+      cursor: pointer;
+      font-weight: bold;
+      border: none;
+      width: 20%;
+    }
+
+    .main-content {
+      background-color: #DEDEDE;
+      padding: 40px;
+    }
+
+    .text-section h4 {
+    font-weight: 100;
+    font-size: 14px;
+    color: black;
+    }
+
+    .step-guide {
+      font-size: 18px;
+    }
+
+    .footer {
+      background-color: #000000;
+      padding: 40px;
+    }
+
+    .footer h4 {
+    color: #5A5A5A;
+    font-weight: bold;
+    font-size: 18px;
+    }
+
+    .soc.media.ref {
+    display: incline-block;
+    padding: 10px 10px;
+    align-items: left;
+    margin-bottom: 20px;
+    cursor: pointer;
+    border: none;
+    width: 20px;
+    }
+
+    .instagram-btn {
+    margin-right: 10px;
+    }
+
+    .company-details {
+    color: #5A5A5A;
+    font-weight: bold;
+    text-align: left;
+    }
+
+  </style>
+<div class="header">
+  <div class="header-content">
+    <h1>Getränke in dein Bauch</h1>
+    <div class="buttons">
+      <a href="tel:06818181533" class="button">Anrufen</a>
+      <a href="{% url 'menu' %}" class="button">Online Bestellen</a>
+    </div>
+  </div>
+</div>
+
+<div class="main-content">
+  <div class="text-section">
+    <h2>Über uns</h2>
+    <h4>Herzlich willkommen bei unserem Online Shop!
+      Entdecken Sie unser breites Sortiment an erfrischenden Getränken, von sprudelnden Limonaden über köstliche Säfte bis hin zu erlesenen Weinen und erfrischenden Bieren. Unser Angebot umfasst eine Vielzahl an Getränken, um jedem Geschmack gerecht zu werden.
+    </h4>
+    <h4>Wir sind stolz darauf, Ihnen unser breites Sortiment an erfrischenden Getränken innerhalb von 50 Minuten zu liefern, wenn Ihr Lieferort in Wien liegt. Bei uns steht Geschwindigkeit an erster Stelle, damit Sie Ihre Lieblingsgetränke so schnell wie möglich genießen können.
+      Unser Lieferversprechen ist klar: Sollten wir es einmal nicht schaffen, Ihre Bestellung innerhalb von 50 Minuten zuzustellen, erhalten Sie umgehend 5€ zurück, unabhängig vom Bestellwert. Ihre Zufriedenheit ist uns wichtig, und wir möchten sicherstellen, dass Sie von unserer schnellen und zuverlässigen Lieferung profitieren.
+      Um von unserem Lieferservice zu profitieren, beachten Sie bitte den Mindestbestellwert von 18,99€. Wenn Sie diesen Wert erreichen, steht Ihnen unsere schnelle Lieferung zur Verfügung. Aber das ist noch nicht alles! Ab einem Bestellwert von 45€ ist die Lieferung sogar kostenlos, damit Sie noch mehr sparen können.
+      Nun möchten wir Ihnen zeigen, wie einfach es ist, bei uns zu bestellen. Folgen Sie einfach den unten stehenden Schritten, um Ihre Lieblingsgetränke in wenigen Minuten zu bestellen und von unserer schnellen Lieferung zu profitieren:
+    </h4>
+  </div>
+
+  <div class="step-guide">
+    < -- step guide -- >
+  </div>
+</div>
+
+<footer class="footer">
+  <h4> Follow us on </h4>
+
+  <div class="soc.media.ref">
+    <a class="instagram-btn" href="https://instagram.com/said.dbz?igshid=OGQ5ZDc2ODk2ZA==">
+      <img src="https://www.freepnglogos.com/uploads/logo-ig-png/logo-ig-lighting-and-furniture-design-studio-aqua-creations-32.png" width = "30" height = "30">
+    </a>
+    <a class="youtube.btn" href="https://www.youtube.com/watch?v=0uhz4up33lU">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1wUYM-g3Npe9trwpyR7Zw7oh-dN0KKO8Wz04isDO9rvJ0kcOz&s" width = "30" height = "30">
+    </a>
+  </div>
+
+  <div class="company-details">
+    <h6>"Streetrunner" operated by Debz GmbH</h6>
+    <h6>said.debziev@mail.ru</h6>
+    <h6>068181881533</h6>
+    <h6>Hackergasse 4, Wien, 1100</h6>
+  </div>
+</html>
+</footer>
