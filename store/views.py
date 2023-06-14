@@ -26,13 +26,14 @@ def store(request):
     context = {'products': products, 'cartItems': cartItems}
     return render(request, 'store/store.html', context)
 
-@login_required
+
 def menu(request):
     data = cartData(request)
     cartItems = data['cartItems']
     categories = Category.objects.all()
     return render(request, 'store/menu.html', {'categories': categories,
-                                               'cartItems': cartItems})
+                                               'cartItems': cartItems,
+                                                'section': 'menu'})
 
 def index(request):
     return render(request, 'store/index.html')
