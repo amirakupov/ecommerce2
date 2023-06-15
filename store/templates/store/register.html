@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login</title>
+    <title>Konto erstellen</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
     <style>
         body {
@@ -51,30 +51,14 @@
     </style>
 </head>
 <body>
-    <div class="login-card">
-        <h2>Login</h2>
-        {% if form.errors %}
-        <p>
-            Ihr Benutzername und Ihr Passwort stimmen nicht überein.
-            Bitte versuchen Sie es erneut.
-        </p>
-        {% endif %}
-        <h5>Willkommen!</h5>
-        <form action="{% url 'login' %}" method="post" >
+    <div class="account-card">
+        <h2>Konto erstellen</h2>
+        <h5>Bitte melden Sie sich mit dem folgenden Formular an:</h5>
+        <form method="post">
+            {{ user_form.as_p }}
             {% csrf_token %}
-            <input type="text" name="username" placeholder="Dein Benutzername" required>
-            <input type="password" name="password" placeholder="Passwort" required>
-            <input type="hidden" name="next" value="{{ next }}" />
-            <button type="submit">Login</button>
+            <button type="submit" value="Konto erstellen"></button>
         </form>
-        <p>
-            <a href="{% url "password_reset" %}">
-            Passwort vergessen?
-            </a>
-        </p>
-        <h6>Noch kein Konto?</h6>
-        <a href="{% url 'register' %}">hier registrieren</a>.
-
     </div>
 </body>
 </html>

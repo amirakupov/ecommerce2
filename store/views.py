@@ -6,7 +6,7 @@ from django.middleware import csrf
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 
-from .forms import LoginForm
+from .forms import LoginForm, UserRegistrationForm
 from .models import *
 from .utils import cookieCart, cartData, guestOrder
 from django.http import JsonResponse, HttpResponse
@@ -59,10 +59,25 @@ def login_view(request):
                 return redirect('menu')
 
             else:
-                return HttpResponse('Invalid login')
+                return HttpResponse('Something went wrong')
     else:
         form = LoginForm()
     return render(request, 'store/login.html', {'form': form})
+
+
+def register(request):
+    if request.method == 'POST':
+        user_form = UserRegistrationForm(request.POST)
+        if user_form.is_valid():
+            new_user = user_form.save(commit=False)
+            new_user.set_password(user_form.cleaned_data['password'])
+            new_user.save()
+            customer = Customer.objects.create(user=new_user)
+            return render(request, 'store/register_done.html', {'new_user': new_user})
+
+    else:
+        user_form = UserRegistrationForm()
+        return render(request, 'store/register.html', {'user_form': user_form})
 
 def cart(request):
     data = cartData(request)
