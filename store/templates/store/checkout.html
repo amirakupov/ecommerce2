@@ -1,9 +1,11 @@
 {% extends 'store/main.html' %}
 {% load static %}
 {% block content %}
+
 <div class="row">
     <div class="col-lg-6">
         <div class="box-element" id="form-wrapper">
+
             <form id="form">
                 {% csrf_token %}
                 <div id="user-info">
@@ -49,7 +51,7 @@
         </div>
         <br>
         <div class="box-element hidden" id="payment-info">
-            <small>Paypal</small>
+            <small>Kartenzahlung</small>
             <button id="make-payment">Zahlen</button>
         </div>
 
@@ -145,16 +147,23 @@
 
 	    	    })
 	    	    .then((response) => response.json())
-	    	    .then((data) => {
-				    console.log('Success:', data);
-				    alert('Vielen Dank für Ihren Einkauf');
+                .then((data) => {
+                    console.log('Success:', data);
 
-				    cart = {}
-				    document.cookie ='cart=' + JSON.stringify(cart) + ";domain=;path=/"
-
-				    window.location.href = "{% url 'menu' %}"
-
-				})
+                    if (data.payment_page_url) {
+                        // Перенаправление пользователя на страницу оплаты Stripe
+                        window.location.href = data.payment_page_url;
+                    } else {
+                        // Обработка ошибки, если не получен URL-адрес платежной страницы
+                        console.log('Error: Payment page URL not found');
+                        // Отобразить пользователю сообщение об ошибке или выполнить другие действия
+                    }
+                })
+                .catch((error) => {
+                    console.log('Error:', error);
+                    // Обработка ошибок, если запрос не удался
+                    // Отобразить пользователю сообщение об ошибке или выполнить другие действия
+                });
         }
 </script>
 {%endblock content%}

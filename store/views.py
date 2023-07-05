@@ -5,7 +5,6 @@ from django.contrib.auth.views import LoginView
 from django.middleware import csrf
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
-
 from .forms import LoginForm, UserRegistrationForm
 from .models import *
 from .utils import cookieCart, cartData, guestOrder
@@ -16,6 +15,7 @@ from django.db.models import Q
 from .models import Product
 from .models import Category
 from django.contrib import messages
+import stripe
 
 
 def store(request):
@@ -131,25 +131,45 @@ def processOrder(request):
     if request.user.is_authenticated:
         customer = request.user.customer
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
-
     else:
         customer, order = guestOrder(request, data)
+
     total = float(data['form']['total'])
     order.transaction_id = transaction_id
 
     if total == order.get_cart_total:
         order.complete = True
-    order.save()
+        order.save()
 
-    if order.shipping == True:
-        ShippingAddress.objects.create(
-            customer=customer,
-            order=order,
-            address=data['shipping']['address'],
-            city=data['shipping']['city'],
-            state=data['shipping']['state'],
-            zipcode=data['shipping']['zipcode'],
-        )
+        # Создание платежной сессии через API Stripe
+        stripe.api_key = 'sk_test_51NJHjvCuKaeyCw2cLLGfS1Tk74AjBkgjLi3KLOmDYU1V3q0nOSkkjUbk4mgoEwGps1APPTI7pjgAXk7RfqoIaTeu00RTRN4ZQU'
 
-    print("Data", request.body)
-    return JsonResponse('Payment complete', safe=False)
+        try:
+            session = stripe.checkout.Session.create(
+                payment_method_types=['card'],
+                line_items=[{
+                    'price_data': {
+                        'currency': 'eur',
+                        'unit_amount': int(total * 100),
+                        'product_data': {
+                            'name': 'product name',  # Название товара
+                        },
+                    },
+                    'quantity': 1,
+                }],
+                mode='payment',
+                success_url='https://yourwebsite.com/payment_success/',  # URL-адрес успешного завершения оплаты
+                cancel_url='https://yourwebsite.com/payment_cancel/',  # URL-адрес отмены оплаты
+            )
+
+            # Получение URL-адреса платежной страницы Stripe
+            payment_page_url = session.url
+
+            # Возвращаем JSON-ответ с URL-адресом платежной страницы Stripe
+            return JsonResponse({'payment_page_url': payment_page_url})
+        except stripe.error.StripeError as e:
+            # Обработка ошибок Stripe
+            error_message = str(e)
+            return JsonResponse({'error': error_message})
+
+    return JsonResponse({'error': 'Invalid order total'})

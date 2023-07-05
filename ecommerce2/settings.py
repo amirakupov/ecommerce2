@@ -137,3 +137,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = 'menu'
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
+
+STRIPE_PUBLISHABLE_KEY = 'pk_test_51NJHjvCuKaeyCw2cvHurU2Fe6JgU5hecHzI0cgE81zFpI3s1pRs1Tkw6xrGJPigWhAQr5N3SXi2CigUOEsgWfRen00mtvS9Q37' # Публикуемый ключ
+STRIPE_SECRET_KEY = 'sk_test_51NJHjvCuKaeyCw2cLLGfS1Tk74AjBkgjLi3KLOmDYU1V3q0nOSkkjUbk4mgoEwGps1APPTI7pjgAXk7RfqoIaTeu00RTRN4ZQU' # Секретный ключ
+STRIPE_API_VERSION = '2022-08-01'
