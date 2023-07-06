@@ -46,6 +46,20 @@ def category(request, category_id):
     products = Product.objects.filter(category=category)
     return render(request, 'store/category.html', {'category': category, 'products': products, 'cartItems': cartItems})
 
+def product_view(request, product_id):
+    data = cartData(request)
+    cartItems = data['cartItems']
+    product = get_object_or_404(Product, id=product_id)
+
+    wholesale_price = product.wholesale_price
+    box_price = product.box_price
+    minimum_quantity = product.minimum_quantity
+
+    return render(request, 'store/product.html', {'product': product, 'cartItems': cartItems,
+                                                  'wholesale_price': wholesale_price,
+                                                  'box_price': box_price,
+                                                  'minimum_quantity': minimum_quantity})
+
 
 def login_view(request):
     if request.method == 'POST':

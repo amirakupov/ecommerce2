@@ -26,7 +26,9 @@ class Product(models.Model):
 	digital = models.BooleanField(default=False,null=True, blank=True)
 	image = models.ImageField(null=True, blank=True)
 	category = models.ForeignKey(Category, on_delete=models.CASCADE,null=True, blank=True)
-
+	wholesale_price = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+	box_price = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+	minimum_quantity = models.IntegerField(null=True, blank=True)
 	def __str__(self):
 		return self.name
 	@property

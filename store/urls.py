@@ -4,10 +4,12 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
 	path('', views.menu, name='menu'),
+	path('index', views.index, name='index'),
 	path('cart/', views.cart, name="cart"),
 	path('checkout/', views.checkout, name="checkout"),
 	path('category/<int:category_id>/', views.category, name='category'),
-	path('index', views.index, name='index'),
+	path('product/<int:product_id>/', views.product_view, name='product_view'),
+
 
 
 	#authentification
